@@ -1,5 +1,4 @@
 from numbers import Number
-from typing import Any, Self
 
 class Contador(dict):
     '''
@@ -50,7 +49,7 @@ class Contador(dict):
     def incrementar(self, chave):
         self[chave] += 1
 
-    def maior(self) -> Any | None:
+    def maior(self):
         '''
         Retorna a chave que possui o maior valor
         '''
@@ -110,13 +109,13 @@ class Contador(dict):
         for chave in self:
             self[chave] /= divisor
 
-    def copia(self) -> Self:
+    def copia(self):
         '''
         Retorna uma cópia do contador
         '''
         return Contador(dict.copy(self))
 
-    def __mul__(self, y: Self | dict) -> Number:
+    def __mul__(self, y) -> Number:
         '''
         A multiplicação de dois contadores retorna o produto escalar deles, onde cada chave é considerada um elemento do vetor
 
@@ -141,7 +140,7 @@ class Contador(dict):
             soma += x[chave] * y[chave]
         return soma
 
-    def __radd__(self, y: Self | dict) -> None:
+    def __radd__(self, y) -> None:
         """
         A soma de dois contadores incrementa o contador atual, somando os valores do segundo contador
 
@@ -158,7 +157,7 @@ class Contador(dict):
         for chave, valor in y.items():
             self[chave] += valor
 
-    def __add__(self, y: Self | dict) -> Self:
+    def __add__(self, y):
         """
         Somar dois contadores retorna um novo contador com a união de todas as chaves e contagens do segundo contador com o primeiro.
 
@@ -183,7 +182,7 @@ class Contador(dict):
             resposta[chave] = y[chave]
         return resposta
 
-    def __sub__(self, y: Self | dict) -> Self:
+    def __sub__(self, y):
         """
         Subtrai os dois contadores, diminuindo do primeiro as contagens que estão no segundo contador
 
