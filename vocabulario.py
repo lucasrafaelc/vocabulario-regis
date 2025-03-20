@@ -24,7 +24,8 @@ def processar_arquivo(file):
 
     # Salva as contagens em um arquivo
     contagens_ordenado = {chave: contagens[chave] for chave in sorted(contagens)}
-    file = file.split("\\")[1]
+    # file = file.split("\\")[1]
+    file = os.path.basename(file)
     with open(f"{DIRETORIO_CONTAGENS}/{file}", "w", encoding='utf-8') as json_file:
         json.dump(contagens_ordenado, json_file, indent=4)
 
@@ -67,17 +68,22 @@ def percentual_palavras_unicas(diretorio_colecao, arquivo_vocabulario):
 
     saida = {}
     for arquivo in tqdm(arquivos):
-        arquivo = arquivo.split("\\")[1]
+        # arquivo = arquivo.split("\\")[1]
+        arquivo = os.path.basename(arquivo)
+
         with open(f"{DIRETORIO_CONTAGENS}/{arquivo}", 'r', encoding='utf-8') as json_file:
             c = json.load(json_file)
 
         contador = 0
         for valor in c:
             if valor not in contador_palavras or contador_palavras[valor] == 1:
-                print(f'{valor} palavra unica | contagem no doc: {c[valor]}')
+                # print(f'{valor} palavra unica | contagem no doc: {c[valor]}')
                 contador += 1
 
-        print(f"{contador} palavras únicas no arquivo {arquivo}. Proporção de {contador / len(c)}%")
+        try:
+            print(f"{contador} palavras únicas no arquivo {arquivo}. Proporção de {contador / len(c)}%")
+        except:
+            print(f"{contador} palavras únicas no arquivo {arquivo}")
         if len(c) != 0:
             porc = contador / len(c)
 
